@@ -7,8 +7,7 @@ workflows:
     scripts:
       - name: Install CocoaPods
         script: |
-          cd .
-          pod install --repo-update --project-directory=.
+          pod install --repo-update
 
       - name: Build App (no signing)
         script: |
@@ -18,18 +17,24 @@ workflows:
             -configuration Release \
             -sdk iphoneos \
             -derivedDataPath build \
-            CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_IDENTITY="" \
             OTHER_CFLAGS="-Wno-deprecated-declarations" \
-            build
+            clean build
 
       - name: Create IPA manually
         script: |
+          # Create the required folder structure
           mkdir -p build/Payload
-          cp -R build/Build/Products/Release-iphoneos/StockManagement.app build/Payload/
+          
+          # Median apps often have spaces or specific names. 
+          # This command finds ANY .app file in the build folder and copies it.
+          cp -R build/Build/Products/Release-iphoneos/*.app build/Payload/
+          
+          # Zip the Payload folder into an IPA
           cd build
-          zip -r StockManagement.ipa Payload
+          zip -r StockManagement_Unsigned.ipa Payload
 
     artifacts:
       - build/*.ipa
