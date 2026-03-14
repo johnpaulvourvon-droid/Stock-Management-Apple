@@ -16,9 +16,11 @@ workflows:
             -scheme "StockManagement" \
             -configuration Release \
             -sdk iphoneos \
+            -derivedDataPath build \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
+            OTHER_CFLAGS="-Wno-deprecated-declarations" \
             build
 
       - name: Create IPA manually
