@@ -1,7 +1,7 @@
 platform :ios, '15.5'
 
 source 'https://cdn.cocoapods.org/'
-source 'https://github.com'
+source 'https://github.com/johnpaulvourvon-droid/Stock-Management-Apple.git'
 
 require_relative './plugins.rb'
 
