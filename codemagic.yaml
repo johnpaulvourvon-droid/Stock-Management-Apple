@@ -2,7 +2,7 @@ workflows:
   ios-native-build:
     name: Median iOS Build
     instance_type: mac_mini_m1
-    max_build_duration: 15
+    max_build_duration: 20
 
     scripts:
       - name: Install CocoaPods
