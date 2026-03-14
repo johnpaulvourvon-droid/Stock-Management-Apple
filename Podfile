@@ -1,17 +1,14 @@
-# Uncomment the next line to define a global platform for your project
 platform :ios, '15.5'
 
-# These MUST be the full URLs to the spec repositories
 source 'https://github.com'
 source 'https://github.com'
 
 require_relative './plugins.rb'
 
-target 'GoNativeIOS' do
-  # Comment the next line if you don't want to use dynamic frameworks
+# Use your actual project name 'StockManagement' here
+target 'StockManagement' do
   use_frameworks!
 
-  # Pods for GonativeIO
   pod 'GoNativeCore'
   pod 'MedianIcons'
   pod 'SSZipArchive', '~> 2.6.0'
@@ -20,9 +17,7 @@ target 'GoNativeIOS' do
 
   target 'MedianIOSTests' do
     inherit! :search_paths
-    # Pods for testing
   end
-
 end
 
 post_install do |installer|
