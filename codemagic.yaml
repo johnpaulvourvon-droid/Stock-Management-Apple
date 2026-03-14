@@ -2,28 +2,31 @@ workflows:
   ios-native-build:
     name: Median iOS Build
     instance_type: mac_mini_m1
-    max_build_duration: 20
+    max_build_duration: 15
 
     scripts:
       - name: Install CocoaPods
         script: |
           pod install --repo-update
 
-      - name: Archive App
+      - name: Build App (no signing)
         script: |
-          xcodebuild archive \
+          xcodebuild \
             -workspace "StockManagement.xcworkspace" \
             -scheme "StockManagement" \
             -configuration Release \
-            -archivePath build/StockManagement.xcarchive \
-            CODE_SIGNING_ALLOWED=NO
+            -sdk iphoneos \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            build
 
-      - name: Export IPA
+      - name: Create IPA manually
         script: |
-          xcodebuild -exportArchive \
-            -archivePath build/StockManagement.xcarchive \
-            -exportOptionsPlist ExportOptions.plist \
-            -exportPath build
+          mkdir -p build/Payload
+          cp -R build/Release-iphoneos/StockManagement.app build/Payload/
+          cd build
+          zip -r StockManagement.ipa Payload
 
     artifacts:
       - build/*.ipa
