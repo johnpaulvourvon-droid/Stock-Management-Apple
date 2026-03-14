@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MedianIcons
 
 @objc class LEANIcons: NSObject {    
     @objc public static let sharedIcons = LEANIcons()
