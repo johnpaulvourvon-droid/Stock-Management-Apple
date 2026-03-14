@@ -9,7 +9,7 @@ target 'StockManagement' do
 
   pod 'GoNativeCore'
   pod 'SSZipArchive', '~> 2.6.0'
-  
+
   use_plugins!
 
   target 'MedianIOSTests' do
