@@ -1,8 +1,7 @@
 platform :ios, '15.5'
 
-# FIXED: Full URLs to the specific repositories
-source 'https://github.com/johnpaulvourvon-droid/Stock-Management-Apple.git'
-source 'https://github.com/johnpaulvourvon-droid/Stock-Management-Apple.git'
+source 'https://cdn.cocoapods.org/'
+source 'https://github.com'
 
 require_relative './plugins.rb'
 
