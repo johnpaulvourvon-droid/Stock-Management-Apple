@@ -1,7 +1,6 @@
 platform :ios, '15.5'
 
 source 'https://cdn.cocoapods.org/'
-source 'https://github.com/gonativeio/gonative-ios-specs.git'
 
 require_relative './plugins.rb'
 
@@ -9,7 +8,7 @@ target 'StockManagement' do
   use_frameworks!
 
   pod 'GoNativeCore'
-  pod 'MedianIcons'
+  pod 'MedianIcons', :git => 'https://github.com/median-co/median-ios-icons.git'
   pod 'SSZipArchive', '~> 2.6.0'
   
   use_plugins!
