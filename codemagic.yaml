@@ -3,24 +3,31 @@ workflows:
     name: Median iOS Build
     instance_type: mac_mini_m1
     max_build_duration: 15
+
     scripts:
-      - name: Install dependencies
+      - name: Install CocoaPods
         script: |
           cd ios
-          # Use the correct Median Specs URL
-          pod repo add gonativeio-gonative-specs https://github.com/johnpaulvourvon-droid/Stock-Management-Apple.git || true
           pod install --repo-update
-      - name: Build iOS App
+
+      - name: Archive App
         script: |
           cd ios
-          xcodebuild build \
+          xcodebuild archive \
             -workspace "StockManagement.xcworkspace" \
             -scheme "StockManagement" \
-            -sdk iphoneos \
             -configuration Release \
+            -archivePath build/StockManagement.xcarchive \
             CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_IDENTITY="" \
-            PROVISIONING_PROFILE_SPECIFIER=""
+            CODE_SIGNING_REQUIRED=NO
+
+      - name: Export IPA
+        script: |
+          cd ios
+          xcodebuild -exportArchive \
+            -archivePath build/StockManagement.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath build
+
     artifacts:
-      - ios/build/Release-iphoneos/*.app
+      - ios/build/*.ipa
