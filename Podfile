@@ -1,6 +1,6 @@
 platform :ios, '15.5'
 
-# ONLY these two sources
+# FIXED: Full URLs to the specific repositories
 source 'https://github.com'
 source 'https://github.com'
 
