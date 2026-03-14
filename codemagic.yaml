@@ -1,17 +1,35 @@
+workflows:
+  ios-native-build:
+    name: Median iOS Build
+    instance_type: mac_mini_m1
+    max_build_duration: 15
+
+    scripts:
+      - name: Install CocoaPods
+        script: |
+          cd .
+          pod install --repo-update --project-directory=.
+
+      - name: Build App (no signing)
+        script: |
+          xcodebuild \
+            -workspace "StockManagement.xcworkspace" \
+            -scheme "StockManagement" \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            OTHER_CFLAGS="-Wno-deprecated-declarations" \
+            build
+
       - name: Create IPA manually
         script: |
-          # 1. Create the Payload folder
           mkdir -p build/Payload
-          
-          # 2. Find where Xcode actually put the .app file
-          # We search inside the derivedDataPath we defined ('build')
-          APP_PATH=$(find build/Build/Products/Release-iphoneos -name "*.app" -type d -maxdepth 1)
-          
-          echo "Found app at: $APP_PATH"
-          
-          # 3. Copy the app into the Payload folder
-          cp -R "$APP_PATH" build/Payload/
-          
-          # 4. Zip it up
+          cp -R build/Build/Products/Release-iphoneos/StockManagement.app build/Payload/
           cd build
-          zip -r StockManagement_Unsigned.ipa Payload
+          zip -r StockManagement.ipa Payload
+
+    artifacts:
+      - build/*.ipa
