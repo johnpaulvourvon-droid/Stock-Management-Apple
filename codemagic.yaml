@@ -7,10 +7,10 @@ workflows:
     scripts:
       - name: Install CocoaPods
         script: |
-          cd .
-          pod install --repo-update --project-directory=.
+          # Force the use of the CDN and update the Median specs
+          pod install --repo-update
 
-      - name: Build App (no signing)
+      - name: Build App (Fixing Scope Error)
         script: |
           xcodebuild \
             -workspace "StockManagement.xcworkspace" \
@@ -21,19 +21,20 @@ workflows:
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
-            # ADD THESE THREE LINES BELOW:
-            ENTITLEMENTS_ALLOWED=NO \
-            GenerateInfoPlistFile=YES \
             COMPILER_INDEX_STORE_ENABLE=NO \
+            OTHER_SWIFT_FLAGS="-D RELEASE" \
             OTHER_CFLAGS="-Wno-deprecated-declarations" \
+            ONLY_ACTIVE_ARCH=NO \
             build
 
       - name: Create IPA manually
         script: |
           mkdir -p build/Payload
-          cp -R build/Build/Products/Release-iphoneos/StockManagement.app build/Payload/
+          # Median often names the internal app folder differently than the workspace
+          APP_PATH=$(find build/Build/Products/Release-iphoneos -name "*.app" -type d -maxdepth 1)
+          cp -R "$APP_PATH" build/Payload/
           cd build
-          zip -r StockManagement.ipa Payload
+          zip -r StockManagement_Unsigned.ipa Payload
 
     artifacts:
       - build/*.ipa
