@@ -7,9 +7,9 @@ workflows:
     scripts:
       - name: Install CocoaPods
         script: |
-          pod repo remove gonative || true
           pod repo add gonative https://github.com/gonativeio/gonative-ios-specs.git || true
-          pod install --verbose
+          pod repo update gonative
+          pod install --repo-update
 
       - name: Archive App
         script: |
