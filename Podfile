@@ -8,7 +8,6 @@ target 'StockManagement' do
   use_frameworks!
 
   pod 'GoNativeCore'
-  pod 'MedianIcons', :git => 'https://github.com/median-co/median-ios-icons.git'
   pod 'SSZipArchive', '~> 2.6.0'
   
   use_plugins!
