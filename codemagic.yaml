@@ -8,7 +8,7 @@ workflows:
         script: |
           cd ios
           # Use the correct Median Specs URL
-          pod repo add gonativeio-gonative-specs https://github.com || true
+          pod repo add gonativeio-gonative-specs https://github.com/johnpaulvourvon-droid/Stock-Management-Apple.git || true
           pod install --repo-update
       - name: Build iOS App
         script: |
