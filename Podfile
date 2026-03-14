@@ -1,11 +1,11 @@
 platform :ios, '15.5'
 
+# ONLY these two sources
 source 'https://github.com'
 source 'https://github.com'
 
 require_relative './plugins.rb'
 
-# Use your actual project name 'StockManagement' here
 target 'StockManagement' do
   use_frameworks!
 
