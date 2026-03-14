@@ -11,7 +11,7 @@ import GoNativeCore
 
 @objc public class ContextMenuHandler: NSObject {
     @objc public static func createConfigurationWith(url: URL, shareAction: @escaping () -> Void) -> UIContextMenuConfiguration? {
-        let appConfig = GoNativeAppConfig.shared()
+        let appConfig = GoNativeCore.shared().configuration
         
         if !appConfig.contextMenuEnabled || url.host == nil {
             return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
