@@ -11,7 +11,7 @@ import GoNativeCore
 
 @objc class WindowsController: NSObject {
     @objc class public func windowCountChanged() {
-        let appConfig = GoNativeAppConfig.shared()
+        let appConfig = GoNativeCore.shared().configuration
         guard LEANWebViewController.currentWindows > appConfig.maxWindows else {
             return
         }
