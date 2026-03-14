@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '15.5'
 
-source 'https://cdn.cocoapods.org/'
+source 'https://github.com'
 source 'https://github.com'
 
 require_relative './plugins.rb'
