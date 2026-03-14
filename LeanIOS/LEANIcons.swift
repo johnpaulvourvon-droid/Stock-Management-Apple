@@ -12,6 +12,6 @@ import Foundation
     @objc public static let sharedIcons = LEANIcons()
     
     @objc public class func imageForIconIdentifier(_ name: String, size: CGFloat, color: UIColor) -> UIImage? {
-        return UIImage(iconName: name, size: size)
+        return UIImage(systemName: name)
     }
 }
