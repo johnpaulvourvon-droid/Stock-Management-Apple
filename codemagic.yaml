@@ -7,27 +7,23 @@ workflows:
     scripts:
       - name: Install CocoaPods
         script: |
-          cd ios
           pod install --repo-update
 
       - name: Archive App
         script: |
-          cd ios
           xcodebuild archive \
             -workspace "StockManagement.xcworkspace" \
             -scheme "StockManagement" \
             -configuration Release \
             -archivePath build/StockManagement.xcarchive \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO
+            CODE_SIGNING_ALLOWED=NO
 
       - name: Export IPA
         script: |
-          cd ios
           xcodebuild -exportArchive \
             -archivePath build/StockManagement.xcarchive \
             -exportOptionsPlist ExportOptions.plist \
             -exportPath build
 
     artifacts:
-      - ios/build/*.ipa
+      - build/*.ipa
