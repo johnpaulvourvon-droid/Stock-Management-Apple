@@ -6,6 +6,8 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
+          # Use the CORRECT full HTTPS URL for Median specs
+          pod repo add gonativeio-gonative-specs https://github.com || true
           pod install
       - name: Build iOS App
         script: |
@@ -20,3 +22,4 @@ workflows:
             PROVISIONING_PROFILE_SPECIFIER=""
     artifacts:
       - build/Release-iphoneos/*.app
+
