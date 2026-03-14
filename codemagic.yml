@@ -1,0 +1,22 @@
+workflows:
+  ios-native-build:
+    name: Median iOS Build
+    instance_type: mac_mini_m1
+    max_build_duration: 15
+    scripts:
+      - name: Install dependencies
+        script: |
+          pod install
+      - name: Build iOS App
+        script: |
+          xcodebuild build \
+            -workspace "GoNativeIOS.xcworkspace" \
+            -scheme "GoNativeIOS" \
+            -sdk iphoneos \
+            -configuration Release \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_IDENTITY="" \
+            PROVISIONING_PROFILE_SPECIFIER=""
+    artifacts:
+      - build/Release-iphoneos/*.app
